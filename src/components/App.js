@@ -258,25 +258,42 @@ function PostDetails({ posts, setPosts }) {
 }
 
 function PostDetailsContent({ post, posts, setPosts }) {
-  const [editing, setEditing] = useState(false);
+  const history = useHistory();
 
+  const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
 
-  const savePost = () => {
-    setPosts(
-      posts.map((item) =>
-        item.id === post.id
-          ? {
-              ...item,
-              title,
-              content,
-            }
-          : item
-      )
-    );
+  const handleEdit = () => {
+    setTitle(post.title);
+    setContent(post.content);
+    setEditing(true);
+  };
 
+  const savePost = () => {
+    const updatedPost = {
+      ...post,
+      title: title,
+      content: content,
+    };
+
+    const updatedPosts = posts.map((item) => {
+      if (item.id === post.id) {
+        return updatedPost;
+      }
+
+      return item;
+    });
+
+    // Update the main posts state
+    setPosts(updatedPosts);
+
+    // Exit edit mode
     setEditing(false);
+
+    // Go back to Posts page so Cypress can verify
+    // the updated post in .posts-list
+    history.push("/");
   };
 
   return (
@@ -291,7 +308,7 @@ function PostDetailsContent({ post, posts, setPosts }) {
 
           <button
             className="button"
-            onClick={() => setEditing(true)}
+            onClick={handleEdit}
           >
             Edit
           </button>
@@ -301,25 +318,29 @@ function PostDetailsContent({ post, posts, setPosts }) {
           <input
             id="postTitle"
             value={title}
-            onChange={(event) =>
-              setTitle(event.target.value)
-            }
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
           />
 
           <textarea
             id="postContent"
             value={content}
-            onChange={(event) =>
-              setContent(event.target.value)
-            }
+            onChange={(event) => {
+              setContent(event.target.value);
+            }}
           />
 
-          <button onClick={savePost}>Save</button>
+          <button onClick={savePost}>
+            Save
+          </button>
         </>
       )}
     </div>
   );
 }
+
+
 
 /* =========================
    USERS PAGE
