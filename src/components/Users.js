@@ -7,9 +7,11 @@ function Users({ users = [], posts = [] }) {
     setSelectedUser(user);
   };
 
-  const selectedUserPosts = posts.filter(
-    (post) => post.author === selectedUser
-  );
+  const selectedUserPosts = selectedUser
+    ? posts.filter(
+        (post) => post.author === selectedUser.name
+      )
+    : [];
 
   return (
     <div>
@@ -19,7 +21,7 @@ function Users({ users = [], posts = [] }) {
         {users.map((user) => (
           <li
             key={user.id}
-            onClick={() => handleUserClick(user.name)}
+            onClick={() => handleUserClick(user)}
           >
             {user.name}
           </li>
@@ -37,12 +39,16 @@ function Users({ users = [], posts = [] }) {
               <p>{post.content}</p>
 
               <div className="reactions">
-                {post.reactions &&
-                  post.reactions.map((count, index) => (
-                    <button key={index} type="button">
+                {(post.reactions || [0, 0, 0, 0, 0]).map(
+                  (count, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                    >
                       {count}
                     </button>
-                  ))}
+                  )
+                )}
               </div>
             </div>
           ))}
@@ -53,4 +59,7 @@ function Users({ users = [], posts = [] }) {
 }
 
 export default Users;
+
+
+
 
