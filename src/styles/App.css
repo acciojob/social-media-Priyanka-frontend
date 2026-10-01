@@ -1,1 +1,99 @@
+.App {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.App > :nth-child(1) {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+button {
+  padding: 8px 14px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+}
+
+.posts-list {
+  margin-top: 30px;
+}
+
+.post {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 15px 0;
+}
+
+.post h3 {
+  margin-top: 0;
+}
+
+.button {
+  margin: 5px;
+}
+
+.reactions {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.reactions button {
+  min-width: 40px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin: 15px 0;
+}
+
+.notificationsList {
+  margin-top: 20px;
+}
+
+.notificationsList div {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
 
