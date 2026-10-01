@@ -25,24 +25,29 @@ function Posts({ posts = [], setPosts, users = [] }) {
   };
 
   const handleReaction = (postId, reactionIndex) => {
-    // Fifth reaction must remain 0
+    // Fifth reaction button must NEVER change
     if (reactionIndex === 4) {
       return;
     }
 
     const updatedPosts = posts.map((post) => {
-      if (post.id === postId) {
-        const updatedReactions = [...post.reactions];
-
-        updatedReactions[reactionIndex] += 1;
-
-        return {
-          ...post,
-          reactions: updatedReactions,
-        };
+      if (post.id !== postId) {
+        return post;
       }
 
-      return post;
+      const updatedReactions = [...post.reactions];
+
+      // Only reactions 1-4 can increase
+      updatedReactions[reactionIndex] =
+        updatedReactions[reactionIndex] + 1;
+
+      // Always keep the fifth reaction at 0
+      updatedReactions[4] = 0;
+
+      return {
+        ...post,
+        reactions: updatedReactions,
+      };
     });
 
     setPosts(updatedPosts);
@@ -101,9 +106,7 @@ function Posts({ posts = [], setPosts, users = [] }) {
                 <button
                   key={index}
                   type="button"
-                  onClick={() =>
-                    handleReaction(post.id, index)
-                  }
+                  onClick={() => handleReaction(post.id, index)}
                 >
                   {count}
                 </button>
