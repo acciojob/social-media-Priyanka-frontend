@@ -80,10 +80,10 @@ function App() {
           </Route>
 
           <Route path="/posts/:postId">
-            <PostDetails
-              posts={posts}
-              setPosts={setPosts}
-            />
+  <PostDetails
+    posts={posts}
+    setPosts={setPosts}
+  />
           </Route>
         </Switch>
       </div>
